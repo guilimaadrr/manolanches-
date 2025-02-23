@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Mano Lanches</title>
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      href="img/favicon2.ico"
+      type="image/x-icon"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style/styles.css" />
+
+    <!-- JavaScript -->
+    <script src="script.js" defer></script>
+
+    <!-- Cor da barra de status no Android e iOS -->
+    <meta name="theme-color" content="#f5c515" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!--Isso impede que o usuário aumente o zoom acidentalmente. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+</head>
+
+  </head>
+  <body>
+    <!-- Cabeçalho -->
+    <header>
+      <div class="logo-container">
+        <img
+          src="img/logoorigi.png"
+          alt="Mano Lanches"
+          width="150"
+          height="150"
+        />
+      </div>
+    </header>
+
+    <!-- Container de rolagem -->
+
+    <main class="container">
+      <h1>AS MANINHAS</h1>
+      <p>Escolha seu Favorito</p>
+
+      <!-- Opções de imagens -->
+      <section class="imgoptions">
+        <button class="image-button" onclick="openModal('modal1')">
+          <img src="img/DACASA.png" alt="Imagem de Pastel 1" />
+        </button>
+        <button class="image-button" onclick="openModal('modal2')">
+          <img src="img/ARTESANAIS.png" alt="Imagem de Pastel 2" />
+        </button>
+        <button class="image-button" onclick="openModal('modal3')">
+          <img src="img/closed.png" alt="Imagem de Pastel 3" />
+        </button>
+        <button class="image-button" onclick="openModal('modal4')">
+          <img src="img/Bebidas.png" alt="Imagem de Bebidas" />
+        </button>
+        <button class="image-button" onclick="openModal('modal5')">
+          <img src="img/GELADOS.png" alt="Imagem de Doces" />
+        </button>
+        <button class="image-button" onclick="openModal('modal6')">
+          <img src="img/DC.png" alt="Imagem de Salgados" />
+        </button>
+      </section>
+
+      <!-- Botão Carrinho -->
+      <button id="viewCart" onclick="openCart()">Ver Carrinho</button>
+
+      <!-- Modal do Carrinho -->
+      <div id="cartModal" class="modal" style="display: none">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('cartModal')">&times;</span>
+          <h2>Carrinho</h2>
+
+          <!-- Opções de Retirada e Entrega -->
+          <div class="delivery-options">
+            <input
+              type="radio"
+              id="retirada"
+              name="deliveryOption"
+              value="Retirada"
+              onchange="toggleAddressField()"
+            />
+            <label for="retirada">RETIRADA</label>
+
+            <input
+              type="radio"
+              id="entrega"
+              name="deliveryOption"
+              value="Entrega"
+              onchange="toggleAddressField()"
+            />
+            <label for="entrega">ENTREGA</label>
+          </div>
+
+          <!-- Campo de Endereço -->
+          <div id="addressField" style="display: none; margin-top: 10px">
+            <label for="deliveryAddress">Endereço de Entrega:</label>
+            <input
+              type="text"
+              id="deliveryAddress"
+              placeholder="Digite o endereço"
+            />
+            <input
+    type="text"
+    id="referencePoint"
+    placeholder="Digite a referência"
+  />
+</div>
+
+          <!-- Importando API do Google Maps -->
+          <script src="https://maps.googleapis.com/maps/api/js?key=SUA_CHAVE_DE_API&libraries=places"></script>
+          <script src="autocomplete.js"></script>
+
+          <div id="cartItems"></div>
+          <h3><button id="cartTotal">TOTAL: R$0,00</button></h3>
+          <button id="sendOrder" onclick="sendOrder()">Enviar Pedidos</button>
+        </div>
+      </div>
+
+      <!-- Modal 1 - Mano Lanche Tudo -->
+<div id="modal1" class="modal" style="display: none">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('modal1')">&times;</span>
+    <h2>Da Casa</h2>
+    <div class="ingredient-list">
+      <h3>Lanches</h3>
+      
+      <label>
+        <input type="checkbox" value="Misto" data-price="8.00" /> 
+        <strong>Misto - R$8,00</strong> <br />
+        Pão Caixa, Queijo, Presunto.
+      </label>      
+      
+      <label>
+        <input type="checkbox" value="Sanduíche de Queijo" data-price="8.00" /> 
+        <strong>Sanduíche de Queijo - R$ 8,00</strong> <br />
+        Pão Caixa, queijo.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="Hambúrguer" data-price="8.00" /> 
+        <strong>Hambúrguer - R$ 8,00</strong> <br />
+        Pão bola, carne, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="Bauru" data-price="9.00" /> 
+        <strong>Bauru - R$ 9,00</strong> <br />
+        Pão Caixa, queijo, presunto, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="Hambúrguer Duplo" data-price="12.00" /> 
+        <strong>Hambúrguer Duplo - R$ 12,00</strong> <br />
+        Pão bola, carne dupla, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="Egg Burger" data-price="13.00" /> 
+        <strong>Egg Burger - R$ 13,00</strong> <br />
+        Pão bola, carne, ovo, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Burguer" data-price="15.00" /> 
+        <strong>X Burguer - R$ 15,00</strong> <br />
+        Pão bola, carne, queijo, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Dog" data-price="16.00" /> 
+        <strong>X Dog - R$ 16,00</strong> <br />
+        Pão bola, carne, queijo, salsicha, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="Americano" data-price="16.00" /> 
+        <strong>Americano - R$ 16,00</strong> <br />
+        Pão Caixa, queijo, presunto, ovo, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Egg Burguer" data-price="17.00" /> 
+        <strong>X Egg Burguer - R$ 17,00</strong> <br />
+        Pão bola, carne, queijo, ovo, alface, tomate, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="American Burger" data-price="18.00" /> 
+        <strong>American Burger - R$ 18,00</strong> <br />
+        Pão Caixa, queijo, presunto, ovo, carne, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Calabresa" data-price="18.00" /> 
+        <strong>X Calabresa - R$ 18,00</strong> <br />
+        Pão bola, calabresa, queijo, carne, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Frango" data-price="19.00" /> 
+        <strong>X Frango - R$ 19,00</strong> <br />
+        Pão bola, frango, queijo, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Egg Dog" data-price="19.00" /> 
+        <strong>X Egg Dog - R$ 19,00</strong> <br />
+        Pão bola, carne, queijo, ovo, salsicha, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Burguer Duplo" data-price="20.00" /> 
+        <strong>X Burguer Duplo - R$ 20,00</strong> <br />
+        Pão bola, carne dupla, queijo duplo, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Bacon" data-price="21.00" /> 
+        <strong>X Bacon - R$ 21,00</strong> <br />
+        Pão bola, carne, queijo, bacon, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Egg Calabresa" data-price="21.00" /> 
+        <strong>X Egg Calabresa - R$ 21,00</strong> <br />
+        Pão bola, calabresa, queijo, carne, ovo, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Egg Frango" data-price="22.00" /> 
+        <strong>X Egg Frango - R$ 22,00</strong> <br />
+        Pão bola, frango, queijo, ovo, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Burguer Frango" data-price="22.00" /> 
+        <strong>X Burguer Frango - R$ 22,00</strong> <br />
+        Pão bola, carne, frango, queijo, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Mania" data-price="22.00" /> 
+        <strong>X Mania - R$ 22,00</strong> <br />
+        Pão bola, calabresa, queijo, bacon, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Egg Bacon" data-price="23.00" /> 
+        <strong>X Egg Bacon - R$ 23,00</strong> <br />
+        Pão bola, carne, queijo, ovo, bacon, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Egg Burguer Frango" data-price="24.00" /> 
+        <strong>X Egg Burguer Frango - R$ 24,00</strong> <br />
+        Pão bola, carne, frango, queijo, ovo, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="Mini X Tudo" data-price="26.00" /> 
+        <strong>Mini X Tudo - R$ 26,00</strong> <br />
+        Pão bola, carne, queijo, ovo, salsicha, presunto, bacon, calabresa, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Tudo" data-price="40.00" /> 
+        <strong>X Tudo - R$ 40,00</strong> <br />
+        Pão bola grande, carne, calabresa, bacon, ovo, salsicha, presunto, queijo, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+      <label>
+        <input type="checkbox" value="X Tudo Duplo" data-price="50.00" /> 
+        <strong>X Tudo Duplo - R$ 50,00</strong> <br />
+        Pão bola grande, carne dupla, queijo duplo, presunto duplo, ovo duplo, salsicha dupla, calabresa, bacon, alface, tomate, cebola, dueto, ketchup, maionese.
+      </label>
+      
+    </div>
+    <button class="submit" onclick="submitOrder('Enviar')">Enviar ao Carrinho</button>
+  </div>
+</div>
+
+
+      <!-- Modal 2 - Artesanais -->
+<div id="modal2" class="modal" style="display: none">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('modal2')">&times;</span>
+    <h2>Artesanais</h2>
+    <div class="ingredient-list">
+      <label>
+        <input type="checkbox" name="artesanal3" value="Frajola" data-price="16.00" /> 
+        <strong>Frajola - R$ 16,00</strong> <br />
+        1 carne de 130g, ovo, queijo coalho, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal4" value="Pato Donald" data-price="19.00" /> 
+        <strong>Pato Donald - R$ 19,00</strong> <br />
+        2 carnes de 130g, queijo mussarela, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal1" value="Pernalonga" data-price="21.00" /> 
+        <strong>Pernalonga - R$ 21,00</strong> <br />
+        2 carnes de 130g, queijo coalho, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal2" value="Mickey" data-price="24.00" /> 
+        <strong>Mickey - R$ 24,00</strong> <br />
+        2 carnes de 130g, bacon, cheddar, molho, verduras
+      </label>
+
+      <h3><strong>Hambúrguer artesanal de 150g</strong></h3>
+      <label>
+        <input type="checkbox" name="artesanal5" value="Bob Esponja" data-price="18.00" /> 
+        <strong>Bob Esponja - R$ 18,00</strong> <br />
+        1 carne de 150g, cheddar, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal6" value="Luccas Neto" data-price="21.00" /> 
+        <strong>Luccas Neto - R$ 21,00</strong> <br />
+        1 carne de 150g, ovo, bacon, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal8" value="Barbie" data-price="28.00" /> 
+        <strong>Barbie - R$ 28,00</strong> <br />
+        2 carnes de 150g, queijo coalho, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal7" value="Scooby-doo" data-price="30.00" /> 
+        <strong>Scooby-doo - R$ 30,00</strong> <br />
+        2 carnes de 150g, bacon, queijo coalho, molho, verduras
+      </label>
+
+      <h3><strong>Times de Futebol</strong></h3>
+      <label>
+        <input type="checkbox" name="artesanal10" value="Argentina" data-price="20.00" /> 
+        <strong>Argentina - R$ 20,00</strong> <br />
+        1 carne de 130g, bacon, queijo coalho, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal11" value="Sport" data-price="22.00" /> 
+        <strong>Sport - R$ 22,00</strong> <br />
+        1 carne de 150g, ovo, queijo mussarela, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal12" value="Santa Cruz" data-price="25.00" /> 
+        <strong>Santa Cruz - R$ 25,00</strong> <br />
+        2 carnes de 130g, ovo, queijo coalho, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal9" value="Brasil" data-price="28.00" /> 
+        <strong>Brasil - R$ 28,00</strong> <br />
+        2 carnes de 130g, bacon, ovo, salsicha, queijo mussarela, molho da casa, verduras
+      </label>
+
+      <h3><strong>Hambúrguer artesanal de frango</strong></h3>
+      <label>
+        <input type="checkbox" name="artesanal14" value="Super Choque" data-price="18.00" /> 
+        <strong>Super Choque - R$ 18,00</strong> <br />
+        2 carnes de frango 130g, ovo, queijo mussarela, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal15" value="Pica-pau" data-price="20.00" /> 
+        <strong>Pica-pau - R$ 20,00</strong> <br />
+        2 carnes de frango 130g, bacon, cheddar, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal13" value="Tom e Jerry" data-price="25.00" /> 
+        <strong>Tom e Jerry - R$ 25,00</strong> <br />
+        2 carnes de frango 130g, queijo coalho, bacon, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal16" value="Branca de Neve" data-price="25.00" /> 
+        <strong>Branca de Neve - R$ 25,00</strong> <br />
+        2 carnes de frango 150g, queijo coalho, molho, verduras
+      </label>
+    </div>
+    <button class="submit" onclick="submitOrder('Enviar')">Enviar ao Carrinho</button>
+  </div>
+</div>
+
+
+
+
+
+      <!-- Modal 3 - Artesanais 
+<div id="modal3" class="modal" style="display: none">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('modal3')">&times;</span>
+    <h2><strong>Artesanais</strong></h2>
+    <div class="ingredient-list">
+      <h3><strong>Hambúrguer artesanal de 130g</strong></h3>
+      <label>
+        <input type="checkbox" name="artesanal1_modal3" value="Pernalonga" data-price="21.00" /> 
+        <strong>Pernalonga - R$ 21,00</strong> <br />
+        2 carnes de 130g, queijo coalho, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal2_modal3" value="Mickey" data-price="24.00" /> 
+        <strong>Mickey - R$ 24,00</strong> <br />
+        2 carnes de 130g, bacon, cheddar, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal3_modal3" value="Frajola" data-price="16.00" /> 
+        <strong>Frajola - R$ 16,00</strong> <br />
+        1 carne de 130g, ovo, queijo coalho, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal4_modal3" value="Pato Donald" data-price="19.00" /> 
+        <strong>Pato Donald - R$ 19,00</strong> <br />
+        2 carnes de 130g, queijo mussarela, molho, verduras
+      </label>
+
+      <h3><strong>Hambúrguer artesanal de 150g</strong></h3>
+      <label>
+        <input type="checkbox" name="artesanal5_modal3" value="Bob Esponja" data-price="18.00" /> 
+        <strong>Bob Esponja - R$ 18,00</strong> <br />
+        1 carne de 150g, cheddar, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal6_modal3" value="Luccas Neto" data-price="21.00" /> 
+        <strong>Luccas Neto - R$ 21,00</strong> <br />
+        1 carne de 150g, ovo, bacon, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal7_modal3" value="Scooby-doo" data-price="30.00" /> 
+        <strong>Scooby-doo - R$ 30,00</strong> <br />
+        2 carnes de 150g, bacon, queijo coalho, molho, verduras
+      </label>
+      <label>
+        <input type="checkbox" name="artesanal8_modal3" value="Barbie" data-price="28.00" /> 
+        <strong>Barbie - R$ 28,00</strong> <br />
+        2 carnes de 150g, queijo coalho, molho, verduras
+      </label>
+    </div>
+    <button class="submit" onclick="submitOrder('modal3')">Enviar ao Carrinho</button>
+  </div>
+</div> -->
+
+
+      <!-- Modal 4 (Bebidas) -->
+      <div id="modal4" class="modal" style="display: none">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('modal4')">&times;</span>
+          <h2>Bebidas</h2>
+          <div class="ingredient-list">
+            <h3>Refrigerantes</h3>
+            <label
+              ><input
+                type="checkbox"
+                name="refrigerante"
+                value="Antarctica 1L"
+                data-price="12.00"
+              />
+              Antarctica 1L - R$12,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="refrigerante"
+                value="Antarctica 2L"
+                data-price="17.00"
+              />
+              Antarctica 2L - R$17,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="refrigerante"
+                value="Coca-Cola 1L"
+                data-price="12.00"
+              />
+              Coca-Cola 1L - R$12,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="refrigerante"
+                value="Coca-Cola 2L"
+                data-price="17.00"
+              />
+              Coca-Cola 2L - R$17,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="refrigerante"
+                value="H2O Limoneto"
+                data-price="6.00"
+              />
+              H2O Limoneto - R$6,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="refrigerante"
+                value="Skinka"
+                data-price="6.00"
+              />
+              Skinka - R$6,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="refrigerante"
+                value="Água Mineral 500ML"
+                data-price="3.00"
+              />
+              Água Mineral 500ML - R$3,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="refrigerante"
+                value="Coca-Cola Lata"
+                data-price="7.00"
+              />
+              Coca-Cola Lata - R$7,00</label
+            >
+
+            <h3>Sucos de Polpa (Com leite ou sem leite - R$10,00)</h3>
+            <label
+              ><input
+                type="checkbox"
+                name="suco"
+                value="Uva"
+                data-price="10.00"
+              />
+              Uva</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="suco"
+                value="Acerola"
+                data-price="10.00"
+              />
+              Acerola</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="suco"
+                value="Manga"
+                data-price="10.00"
+              />
+              Manga</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="suco"
+                value="Caju"
+                data-price="10.00"
+              />
+              Caju</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="suco"
+                value="Graviola"
+                data-price="10.00"
+              />
+              Graviola</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="suco"
+                value="Maracujá"
+                data-price="10.00"
+              />
+              Maracujá</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="suco"
+                value="Cajá"
+                data-price="10.00"
+              />
+              Cajá</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="suco"
+                value="Mangaba"
+                data-price="10.00"
+              />
+              Mangaba</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="suco"
+                value="Pinha"
+                data-price="10.00"
+              />
+              Pinha</label
+            >
+          </div>
+
+          <button class="submit" onclick="submitOrder('Enviar')">
+            Enviar ao Carrinho
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal 5 - Milk Shakes e Açaí -->
+      <div id="modal5" class="modal" style="display: none">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('modal5')">&times;</span>
+          <h2>Gelados</h2>
+          <div class="ingredient-list">
+            <h3>Milk Shakes (Com ou sem Ovomaltine - R$ 17,00)</h3>
+            <label
+              ><input
+                type="checkbox"
+                name="milkshake1"
+                value="Chocolate"
+                data-price="17.00"
+              />
+              Chocolate - 500 ml - R$ 17,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="milkshake2"
+                value="Morango"
+                data-price="17.00"
+              />
+              Morango - 500 ml - R$ 17,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="milkshake3"
+                value="Ninho com Nutella"
+                data-price="17.00"
+              />
+              Ninho com Nutella - 500 ml - R$ 17,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="milkshake4"
+                value="Delícia de Abacaxi"
+                data-price="17.00"
+              />
+              Delícia de Abacaxi - 500 ml - R$ 17,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="milkshake5"
+                value="Ninho com Oreo"
+                data-price="17.00"
+              />
+              Ninho com Oreo - 500 ml - R$ 17,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="milkshake6"
+                value="Pavê"
+                data-price="17.00"
+              />
+              Pavê - 500 ml - R$ 17,00</label
+            >
+
+            <h3>Amazonas</h3>
+            <label
+              ><input
+                type="checkbox"
+                name="amazonas"
+                value="Amazonas"
+                data-price="10.00"
+              />
+              Amazonas - 500 ml - R$ 10,00</label
+            >
+
+            <h3>Vitamina</h3>
+            <label
+              ><input
+                type="checkbox"
+                name="vitamina"
+                value="Vitamina de Banana"
+                data-price="10.00"
+              />
+              Vitamina de Banana - 500 ml - R$ 10,00</label
+            >
+
+            <h3>Guaraçaí</h3>
+            <label
+              ><input
+                type="checkbox"
+                name="guaracai"
+                value="Guaraçaí"
+                data-price="15.00"
+              />
+              Guaraçaí - 500 ml - R$ 15,00</label
+            >
+
+            <h3>Açaí</h3>
+            <label
+              ><input
+                type="checkbox"
+                name="acai1"
+                value="Açaí 300 ml"
+                data-price="14.00"
+              />
+              Açaí - 300 ml - R$ 14,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="acai2"
+                value="Açaí 500 ml"
+                data-price="18.00"
+              />
+              Açaí - 500 ml - R$ 18,00</label
+            >
+          </div>
+          <button class="submit" onclick="submitOrder('modal5')">
+            Enviar ao Carrinho
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal 6 - Doces e Salgados -->
+      <div id="modal6" class="modal" style="display: none">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('modal6')">&times;</span>
+          <h2>Doces e Salgados</h2>
+          <div class="ingredient-list">
+            <h3>Salgados</h3>
+            <label
+              ><input
+                type="checkbox"
+                name="salgado4"
+                value="Pote de Maionese"
+                data-price="4.00"
+              />
+              Pote de Maionese - R$ 4,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="salgado5"
+                value="Coxinha de Frango"
+                data-price="5.00"
+              />
+              Coxinha de Frango - R$ 5,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="salgado6"
+                value="Risole de Pizza"
+                data-price="5.00"
+              />
+              Risole de Pizza - R$ 5,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="salgado7"
+                value="Enroladinho de Queijo com Salsicha"
+                data-price="5.00"
+              />
+              Enroladinho de Queijo com Salsicha - R$ 5,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="salgado1"
+                value="Cachorro Quente 15 cm"
+                data-price="7.00"
+              />
+              Cachorro Quente - 15 cm - R$ 7,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="salgado3"
+                value="Pastel de Forno"
+                data-price="7.00"
+              />
+              Pastel de Forno (Frango) - R$ 7,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="salgado2"
+                value="Cachorrão 30 cm"
+                data-price="10.00"
+              />
+              Cachorrão - 30 cm - R$ 10,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="salgado8"
+                value="Pizza"
+                data-price="10.00"
+              />
+              Pizza 🍕 - R$ 10,00</label
+            >
+
+            <h3>Sobremesas</h3>
+            <label
+              ><input
+                type="checkbox"
+                name="sobremesa2"
+                value="Trufas"
+                data-price="4.00"
+              />
+              Trufas - R$ 4,00</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="sobremesa1"
+                value="Pudim"
+                data-price="10.00"
+              />
+              Pudim - R$ 10,00</label
+            >
+
+            <h3>Bolo de Pote - R$ 10,00</h3>
+            <label
+              ><input
+                type="checkbox"
+                name="bolo1"
+                value="Bolo de Pote - Prestígio"
+                data-price="10.00"
+              />
+              Prestígio</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="bolo2"
+                value="Bolo de Pote - Bem Casado"
+                data-price="10.00"
+              />
+              Bem Casado</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="bolo3"
+                value="Bolo de Pote - Red Velvet"
+                data-price="10.00"
+              />
+              Red Velvet</label
+            >
+          </div>
+          <button class="submit" onclick="submitOrder('modal6')">
+            Enviar ao Carrinho
+          </button>
+        </div>
+      </div>
+    </main>
+
+
+    <div class="social-icons">
+      <a href="https://wa.me/5581994956795" target="_blank" class="whatsapp-icon" aria-label="WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+      </a>
+      <a href="https://instagram.com/manolanches.oficial" target="_blank" class="instagram-icon" aria-label="Instagram">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+    </div>
+    
+    <footer>
+      <p>
+        &copy; <span id="currentYear"></span> Mano Lanches. Todos os direitos reservados.
+      </p>
+    </footer>
+    
+    </body>
+    </html>
+    

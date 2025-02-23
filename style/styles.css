@@ -1,0 +1,545 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%; /* Base para rem */
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+/* Estilos gerais para mobile */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ===== HEADER ===== */
+header {
+  background-color: rgb(255, 204, 0); /* Cor de fundo amarela */
+  padding: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 130px; /* Ajuste para melhor proporção */
+  position: relative;
+  border-radius: 15px; /* Bordas arredondadas no header */
+  margin-top: 20px; /* Espaçamento acima do header */
+}
+
+/* Centraliza a logo e mantém responsiva */
+header .logo-container {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Imagem da logo redonda e sombreada */
+header .logo-container img {
+  width: 100%;
+  height: 100%;
+
+  border-radius: 50%; /* Imagem redonda */
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Sombra suave */
+  object-fit: cover; /* Garante que a imagem não distorça */
+  transition: transform 0.3s ease;
+}
+
+/* Ajustes adicionais para mobile */
+@media (max-width: 600px) {
+  header {
+    height: 160px;
+  }
+  header .logo-container {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* Ajustes adicionais para mobile */
+@media (max-width: 600px) {
+  .container,
+  .imgoptions,
+  .modal,
+  .modallogin {
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
+  }
+  header .logo-container {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  width: 90%;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  text-align: center;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container h1 {
+  font-size: 2rem;
+  color: #505050;
+  margin-bottom: 1rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  font-family: "Montserrat", sans-serif;
+
+  /* Fonte elegante e clássica */
+  text-transform: uppercase; /* Título em maiúsculas para mais impacto */
+  text-align: center; /* Alinha o título ao centro */
+}
+
+.container p {
+  font-family: "Montserrat", sans-serif;
+
+  font-size: 1rem;
+  color: #505050;
+  margin-bottom: 1rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .container {
+    width: 80%;
+    padding: 1rem;
+  }
+
+  .container h1 {
+    font-size: 1.8rem;
+  }
+
+  .container p {
+    font-size: 0.9rem;
+  }
+}
+
+/* ===== IMG OPTIONS ===== */
+.imgoptions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+  justify-content: center;
+}
+
+.image-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.image-button img {
+  width: 100%;
+  max-width: 110px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.image-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.image-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  opacity: 0.9;
+}
+
+/* Botão do carrinho */
+#viewCart {
+  width: 90%;
+  max-width: 300px;
+  padding: 10px;
+  background-color: #f5c515;
+  border: none;
+  border-radius: 5px;
+  color: #f4f4f4;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(245, 197, 21, 0.4);
+}
+
+/* Botão de Envio ao whatssap */
+#sendOrder {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff6600;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+/* Estilização das opções de entrega */
+.delivery-options {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px; /* Reduz margem para otimizar espaço */
+}
+
+.delivery-options input[type="radio"] {
+  display: none; /* Esconde os botões padrão */
+}
+
+.delivery-options label {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  border: 2px solid transparent;
+  font-size: 14px;
+}
+
+.delivery-options input[type="radio"]:checked + label {
+  background-color: #ff6600;
+  color: white;
+  border: 2px solid #cc5200;
+}
+
+/* Campo de endereço */
+#addressField {
+  display: none;
+  margin-bottom: 10px;
+}
+
+#addressField label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 3px;
+}
+
+#addressField input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 3px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+#addressField input[readonly] {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+/* Ajuste do modal para acomodar melhor os elementos */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  max-height: 90vh;
+}
+
+/* Melhor organização do conteúdo rolável */
+.cart-body {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  max-height: calc(100% - 160px); /* Evita que o rodapé cubra conteúdo */
+}
+
+/* Ajuste no rodapé para ficar fixo dentro do modal */
+.cart-footer {
+  position: relative;
+  background: #f4f4f4;
+  padding: 12px;
+  text-align: center;
+  border-top: 2px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Botão de total */
+#cartTotal {
+  background-color: #f4f4f4;
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background 0.3s ease;
+}
+
+#cartTotal:hover {
+  background-color: #ffffff;
+}
+
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%; /* Aumenta a largura */
+  max-width: 700px; /* Define um novo limite para telas maiores */
+  background: #f4f4f4;
+  border: 2px solid #000000;
+  border-radius: 15px;
+  box-shadow: 0 0 15px #000000;
+  color: #222;
+  padding: 10px; /* Ajuste no espaçamento interno */
+  text-align: center;
+  overflow-y: hidden; /* Impede o crescimento do modal */
+}
+
+/* CONTEÚDO DO MODAL */
+.modal-content {
+  position: relative;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 650px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Garante que o footer não vaze */
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  color: #000000;
+  cursor: pointer;
+}
+
+.ingredient-list {
+  text-align: left;
+  max-height: 400px; /* Ajuste conforme necessário */
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-top: 10px;
+  border: 1px solid #ddd; /* Opcional: Adiciona um contorno */
+  border-radius: 5px;
+  background: #fff; /* Opcional: Fundo diferenciado */
+  padding: 10px;
+}
+
+/* Personalização da barra de rolagem */
+.ingredient-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ingredient-list::-webkit-scrollbar-thumb {
+  background-color: #e6b800;
+  border-radius: 5px;
+}
+
+.ingredient-list::-webkit-scrollbar-track {
+  background-color: #f8f8f8;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 5px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+label:hover {
+  background: rgba(255, 204, 0, 0.2);
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ffcc00;
+  background: black;
+  color: #ffcc00;
+}
+
+.submit {
+  width: 100%;
+  padding: 10px;
+  background: #ffcc00;
+  border: none;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.submit:hover {
+  background: #e6b800;
+}
+
+/* MODAL DO CARRINHO */
+#cartModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%; /* Aumenta a largura */
+  max-width: 700px; /* Ajusta o tamanho máximo */
+  background: #f4f4f4;
+  border: 2px solid #000000;
+  border-radius: 15px;
+  box-shadow: 0 0 15px #000000;
+  color: #222;
+  padding: 10px;
+  text-align: center;
+  overflow-y: hidden; /* Evita que o modal inteiro role */
+}
+
+/* CONTEÚDO DO MODAL DO CARRINHO */
+#cartModal .modal-content {
+  position: relative;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 650px; /* Ajusta a largura */
+  height: 600px; /* Aumenta a altura */
+  overflow-y: hidden; /* Mantém o modal fixo */
+}
+
+/* LISTA DE ITENS NO CARRINHO (Com rolagem) */
+#cartItems {
+  margin: 1rem 0;
+  max-height: 400px; /* Ajuste para maior visibilidade */
+  overflow-y: auto; /* Adiciona rolagem apenas nos itens */
+  text-align: left;
+  font-size: 0.9rem;
+  color: #333;
+  padding-right: 0.5rem;
+  border: 1px solid #ddd; /* Contorno opcional */
+  border-radius: 5px;
+  background: #fff; /* Fundo diferenciado */
+  padding: 10px;
+}
+
+/* Personaliza a rolagem */
+#cartItems::-webkit-scrollbar {
+  width: 6px;
+}
+
+#cartItems::-webkit-scrollbar-thumb {
+  background-color: #e6b800;
+  border-radius: 5px;
+}
+
+#cartItems::-webkit-scrollbar-track {
+  background-color: #f8f8f8;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  text-align: center;
+  padding: 15px;
+  background-color: #ff0000;
+  color: #fff;
+  font-size: 1.2rem; /* Aumentei o tamanho da fonte */
+  font-weight: bold; /* Deixa o texto mais destacado */
+
+  background: rgba(0, 0, 0, 0.85); /* Fundo escuro e translúcido */
+  color: #f0f0f0; /* Cor clara para o texto */
+  font-size: 10px; /* Tamanho de fonte menor para um footer mais discreto */
+  border-top: 2px solid #ffcc00; /* Linha dourada acima do footer */
+  box-shadow: 0 -2px 8px rgba(255, 204, 0, 0.4); /* Sombra para destacar */
+  box-sizing: border-box; /* Garantir que o padding e borda sejam contados dentro da largura */
+  z-index: 999; /* Assegura que o footer fique acima de outros elementos */
+}
+
+/*Icones */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.social-icons a {
+  font-size: 30px;
+  color: white;
+  background-color: #25d366; /* Cor padrão do WhatsApp */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.social-icons a.instagram-icon {
+  background-color: #e4405f; /* Cor padrão do Instagram */
+}
+
+.social-icons a:hover {
+  transform: scale(1.1);
+}
