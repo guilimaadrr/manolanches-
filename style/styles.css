@@ -366,7 +366,7 @@ header .logo-container img {
 
 .ingredient-list {
   text-align: left;
-  max-height: 400px; /* Ajuste conforme necessário */
+  max-height: 450px; /* Ajuste conforme necessário */
   overflow-y: auto;
   padding-right: 10px;
   margin-top: 10px;
@@ -467,30 +467,30 @@ input[type="checkbox"] {
 /* LISTA DE ITENS NO CARRINHO (Com rolagem) */
 #cartItems {
   margin: 1rem 0;
-  max-height: 400px; /* Ajuste para maior visibilidade */
-  overflow-y: auto; /* Adiciona rolagem apenas nos itens */
+  max-height: 400px;
+  overflow-y: auto;
   text-align: left;
   font-size: 0.9rem;
   color: #333;
-  padding-right: 0.5rem;
-  border: 1px solid #ddd; /* Contorno opcional */
-  border-radius: 5px;
-  background: #fff; /* Fundo diferenciado */
   padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Personaliza a rolagem */
 #cartItems::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 #cartItems::-webkit-scrollbar-thumb {
   background-color: #e6b800;
-  border-radius: 5px;
+  border-radius: 8px;
 }
 
 #cartItems::-webkit-scrollbar-track {
-  background-color: #f8f8f8;
+  background-color: #f0f0f0;
 }
 
 /* ===== FOOTER ===== */
@@ -542,4 +542,30 @@ footer {
 
 .social-icons a:hover {
   transform: scale(1.1);
+}
+
+/* Controles de quantidade */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px; /* Adiciona um espaço abaixo */
+  border-bottom: 1px solid #ddd; /* Linha divisória abaixo */
+}
+
+.quantity-controls button {
+  background: #ffcc00;
+  color: white;
+  border: none;
+  width: 28px;
+  height: 28px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.quantity-controls .item-quantity {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
 }

@@ -55,7 +55,6 @@ function clearCart() {
 }
 
 // Função para coletar os itens dos modais e enviar ao carrinho
-// Função para coletar os itens dos modais e enviar ao carrinho
 function submitOrder() {
   let allItems = [];
   let modals = ["modal1", "modal2", "modal4", "modal5", "modal6"]; // Adicionado modal6
@@ -259,7 +258,7 @@ function updateItemQuantity(checkbox, change) {
 function submitOrder() {
   let allItems = [];
 
-  ["modal1", "modal2", "modal4"].forEach((modalId) => {
+  ["modal1", "modal2", "modal4", "modal5", "modal6"].forEach((modalId) => {
     const items = document.querySelectorAll(
       `#${modalId} input[type='checkbox']:checked`
     );
