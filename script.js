@@ -300,20 +300,19 @@ function sendOrder() {
   }
 
   let orderNumber = Math.floor(1000 + Math.random() * 9000);
-  let message = `Olá 🤗, Segue pedido: #${orderNumber}\n\n`;
+  let message = `Olááá 🤗! Pedido #${orderNumber} confirmado com sucesso!\n\n`;
 
   let totalItems = 0;
   let orderSummary = {};
 
   cartItems.forEach((item) => {
-    const name = item.querySelector("h3").innerText; // Nome do lanche
+    const name = item.querySelector("h3").innerText;
     const price = parseFloat(item.getAttribute("data-price"));
     const quantityElement = item.querySelector(".item-quantity");
     const quantity = quantityElement ? parseInt(quantityElement.innerText) : 1;
 
     totalItems += quantity;
 
-    // Buscar ingredientes dentro do label
     let ingredients = "";
     const label = [...document.querySelectorAll("label")].find((lbl) =>
       lbl.textContent.includes(name)
@@ -344,28 +343,22 @@ function sendOrder() {
     }
   });
 
-  message += `📦 TOTAL DE ITENS: ${totalItems}\n\n`;
-  message += "⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘\n\n";
+  message += `📦 Total de itens: ${totalItems} delícias de respeito!\n\n━━━━━━━━━━━━━━━\n\n`;
 
   for (let item in orderSummary) {
-    message += `📌 PEDIDO: ${item.toUpperCase()}\n\n`;
+    message += `📌 ${item.toUpperCase()}\n\n`;
 
-    // Se houver ingredientes, exibe com a palavra "Ingredientes"
     if (orderSummary[item].ingredients) {
-      message += `🍔 INGREDIENTES: ${orderSummary[item].ingredients}\n\n`; // Adicionado um espaço extra
+      message += `🍔 Ingredientes: ${orderSummary[item].ingredients}\n\n`;
     }
 
-    message += `🛒 QUANTIDADE: ${
-      orderSummary[item].quantity
-    }\n💵 PREÇO UNITÁRIO: R$${orderSummary[item].price.toFixed(2)}\n`;
+    message += `🛒 Quantidade: ${orderSummary[item].quantity}\n💵 Preço unitário: R$${orderSummary[item].price.toFixed(2)}\n`;
 
     if (orderSummary[item].quantity > 1) {
-      message += `💰 PREÇO TOTAL: R$${orderSummary[item].totalPrice.toFixed(
-        2
-      )}\n`;
+      message += `💰 Total do item: R$${orderSummary[item].totalPrice.toFixed(2)}\n`;
     }
 
-    message += "\n⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘\n\n";
+    message += `\n━━━━━━━━━━━━━━━\n\n`;
   }
 
   const deliveryOption = document.querySelector(
@@ -376,7 +369,7 @@ function sendOrder() {
     return;
   }
 
-  message += `🏍️ Opção de Entrega: ${deliveryOption.value}\n\n`;
+  message += `🏍️ Tipo de entrega: ${deliveryOption.value}\n`;
 
   if (deliveryOption.value === "Entrega") {
     const address = document.getElementById("deliveryAddress").value.trim();
@@ -384,42 +377,44 @@ function sendOrder() {
       alert("Por favor, preencha o endereço de entrega.");
       return;
     }
-    message += `📍 Endereço de Entrega: ${address}\n\n`;
+    message += `📍 Endereço: ${address}\n`;
 
     const referencePoint = document
       .getElementById("referencePoint")
       .value.trim();
     if (referencePoint) {
-      message += `📍 Referência: ${referencePoint}\n\n`;
+      message += `📌 Referência: ${referencePoint}\n`;
     }
   }
 
-  message +=
-    "🚨Se desejar remover ou adicionar ingredientes, informe-nos!🚨\n\n";
-  message += "⚠️ Confirme se está tudo correto ⚠️\n\n";
-  message += "💳 O pedido será feito após a confirmação do pagamento 💳\n\n";
+  message += `\n⏳ Status: Pedido recebido e em preparo!\n`;
+  message += `⏰ Previsão de entrega: até 45 minutos\n`;
+  message += `💳 Forma de pagamento: Pix\n\n`;
+
+  message += `🚨 Quer tirar ou adicionar algum ingrediente? Só chamar! 🚨\n\n`;
+  message += `⚠️ Confirme se está tudo certinho por aí! ⚠️\n\n`;
+  message += `💳 O pedido será feito após a confirmação do pagamento 💳\n\n`;
 
   const total = document
     .getElementById("cartTotal")
     .innerText.replace("TOTAL: R$", "");
-  message += `💰 TOTAL: R$${parseFloat(total).toFixed(2)}\n\n`;
-  message += "🥰 As Maninhas Agradecem! 🥰\n";
+  message += `💰 Total geral: R$${parseFloat(total).toFixed(2)}\n\n`;
+
+  message += `Muito obrigada! Que esse pedido chegue quentinho e cheio de sabor!\nAs Maninhas Agradecem com carinho! 🥰❤️✨`;
 
   const phoneNumber = "5581994956795";
-  const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-    message
-  )}`;
+  const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
   window.open(url, "_blank");
   alert("Pedido enviado com sucesso!");
 
-  // Limpar os campos de endereço e referência
+  // Limpar os campos
   document.getElementById("deliveryAddress").value = "";
   document.getElementById("referencePoint").value = "";
 
   clearCart();
 }
 
-//Ano do footer //
+//Ano do footer
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("currentYear").textContent = new Date().getFullYear();
 });
